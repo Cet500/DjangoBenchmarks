@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+<section class="container">
+    <div class="section section-none">
+        <h1>Полная информация о сервере</h1>
+        <p>Снято: {{ current_time }}</p>
+    </div>
+
+    <div class="section section-1-2">
+        <h2 class="m-t-0">Операционная система</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>ОС</td><td>{{ info.system.os }} {{ info.system.os_version }}</td></tr>
+                <tr><td>Архитектура</td><td>{{ info.system.architecture }} / {{ info.system.machine }}</td></tr>
+                <tr><td>Имя сервера</td><td>{{ info.system.hostname }}</td></tr>
+                <tr><td>Время работы</td><td>{{ info.system.uptime }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section section-1-2">
+        <h2 class="m-t-0">Python</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Версия</td><td>{{ info.python.implementation }} {{ info.python.version }}</td></tr>
+                <tr><td>Компилятор</td><td>{{ info.python.compiler }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2 class="m-t-0">Django</h2>
+
+        <h3>Данные о проекте Django</h3>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Версия</td><td>{{ info.django.version }}</td></tr>
+                <tr><td>Режим DEBUG</td><td>{{ info.django.debug }}</td></tr>
+                <tr><td>Часовой пояс</td><td>{{ info.django.timezone }}</td></tr>
+                <tr><td>Приложения</td><td>{{ info.django.installed_apps|join:"<br>" }}</td></tr>
+                <tr><td>Промежуточные слои</td><td>{{ info.django.middleware|join:"<br>" }}</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Установленные пакеты Python</h3>
+
+        <table class="table zebra">
+            <thead>
+                <tr>
+                    <th>Пакет</th>
+                    <th>Версия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pkg in info.packages %}
+                    <tr>
+                        <td>{{ pkg.name }}</td>
+                        <td>{{ pkg.version }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section section-3-4">
+        <h2 class="m-t-0">Процессор</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Название</td><td>{{ info.cpu.name }}</td></tr>
+                <tr><td>Ядра / потоки</td><td>{{ info.cpu.cores }} / {{ info.cpu.threads }}</td></tr>
+                <tr><td>Частота</td><td>{{ info.cpu.freq|default:"N/A" }} MHz</td></tr>
+                <tr><td>Текущая загрузка</td><td>{{ info.cpu.usage }}%</td></tr>
+                <tr><td>Текущая загрузка ( по потокам )</td><td>{{ info.cpu.usage_by_threads|join:' / ' }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="section section-1-4">
+        <h2 class="m-t-0">Память</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Занято / всего</td><td>{{ info.memory.used|filesizeformat }} / {{ info.memory.total|filesizeformat }}</td></tr>
+                <tr><td>Процент</td><td>{{ info.memory.percent }}%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section section-1-2">
+        <h2 class="m-t-0">Сетевой трафик</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Отправлено / получено</td><td>{{ info.network.io.bytes_sent|filesizeformat }} / {{ info.network.io.bytes_recv|filesizeformat }}</td></tr>
+                <tr><td>Пакетов отправлено / получено</td><td>{{ info.network.io.packets_sent }} / {{ info.network.io.packets_recv }}</td></tr>
+                <tr><td>IP адрес ( ? )</td><td>{{ info.network.ip_address }}</td></tr>
+                <tr><td>Локальное имя</td><td>{{ info.network.hostname }}</td></tr>
+                <tr><td>Сетевое имя</td><td>{{ info.network.fqdn }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section section-1-2">
+        <h2 class="m-t-0">База данных</h2>
+
+        <table class="table">
+            <thead>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Движок</td><td>{{ info.database.engine }}</td></tr>
+                <tr><td>Имя БД</td><td>{{ info.database.name }}</td></tr>
+                <tr><td>Записей результатов</td><td>{{ info.database.test_records_count }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2 class="m-t-0">Диски</h2>
+
+        {% if info.disks %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Устройство ( точка монтажа )</th>
+                        <th>ФС</th>
+                        <th>Использовано / всего</th>
+                        <th>Использование</th>
+                        <th>Свободно</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for disk in info.disks %}
+                        <tr>
+                            <td>{{ disk.device }} ( {{ disk.mountpoint }} )</td>
+                            <td>{{ disk.fstype }}</td>
+                            <td>{{ disk.used|filesizeformat }} / {{ disk.total|filesizeformat }}</td>
+                            <td>{{ disk.percent }}%</td>
+                            <td>{{ disk.free|filesizeformat }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Не удалось получить информацию о дисках</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2 class="m-t-0">Графические процессоры</h2>
+
+        {% if info.gpu %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Памяти использовано / всего</th>
+                        <th>Загрузка</th>
+                        <th>Температура</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gpu in info.gpu %}
+                        <tr>
+                            <td>{{ gpu.id }}</td>
+                            <td>{{ gpu.name }}</td>
+                            <td>{{ gpu.memory_used }} MB / {{ gpu.memory_total }} MB</td>
+                            <td>{{ gpu.load }}%</td>
+                            <td>{{ gpu.temperature }}%</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Информация о GPU недоступна или их нет</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

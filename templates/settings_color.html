@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block add_styles %}
+    <link rel="stylesheet" href="{% static 'css/lib/dynamic_slider.css' %}">
+{% endblock %}
+
+
+{% block main %}
+
+    <h1>Настройки акцентного цвета</h1>
+
+    <div id="color-preview"
+         style="background-color: hsl({{ hue|default:215 }}, {{ saturation|default:100 }}%, 55%);"></div>
+    
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div class="slider-wrapper">
+            <label for="hueSlider">Оттенок (0-360°)</label>
+            <input type="range" class="custom-slider zebra" id="hueSlider" name="hueSlider" min="0" max="360"
+                   value="{{ hue|default:215 }}" oninput="updateColor()">
+        </div>
+
+        <div class="slider-wrapper">
+            <label for="saturationSlider">Насыщенность (0-100%)</label>
+            <input type="range" class="custom-slider zebra" id="saturationSlider" name="saturationSlider" min="0" max="100"
+                   value="{{ saturation|default:100 }}" oninput="updateColor()">
+        </div>
+
+        <button type="submit" class="btn accent center">Сохранить тему</button>
+    </form>
+
+    <script>
+        function updateColor() {
+            const hue = document.getElementById('hueSlider').value;
+            const saturation = document.getElementById('saturationSlider').value;
+
+            document.getElementById('color-preview').style.backgroundColor = `hsl(${hue}, ${saturation}%, 55%)`;
+        }
+
+        window.addEventListener('DOMContentLoaded', updateColor);
+    </script>
+
+{% endblock %}
+
+
+{% block add_scripts %}
+    <script src="{% static 'js/lib/dynamic_slider.js' %}"></script>
+{% endblock %}

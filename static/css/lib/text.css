@@ -1,0 +1,111 @@
+/* ------------------------------ text styles ------------------------------- */
+
+/* ----------------------- default ---------------------- */
+
+h1{
+    font-family: "Exo 2", sans-serif;
+    font-size: 40px;
+    margin: 20px 0;
+}
+h2{
+    font-family: "Exo 2", sans-serif;
+    font-size: 28px;
+    margin: 20px 0;
+}
+h3{
+    font-family: "Exo 2", sans-serif;
+    font-size: 24px;
+    margin: 20px 0;
+}
+p{
+    font-family: "Exo 2", sans-serif;
+    font-size: 18px;
+    margin: 0;
+}
+a{
+    font-family: "Exo 2", sans-serif;
+    color: inherit;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0;
+}
+code{
+    font-family: Consolas, monospace;
+    font-size: 17px;
+    margin: 0;
+}
+
+/* ----------------------- special ---------------------- */
+
+.logo{
+    font-size: 24px;
+}
+
+/* ------------------------ size ------------------------ */
+
+.text-s14{
+    font-size: 14px;
+}
+.text-s16{
+    font-size: 16px;
+}
+.text-s18{
+    font-size: 18px;
+}
+.text-s20{
+    font-size: 20px;
+}
+.text-s22{
+    font-size: 22px;
+}
+
+/* ----------------------- colors ----------------------- */
+
+.text-accent{
+    color: var(--clr-accent)
+}
+.text-secondary{
+    color: var(--clr-secondary);
+}
+
+/* ----------------------- weight ----------------------- */
+
+.text-w100{
+    font-weight: 100;
+}
+.text-w200{
+    font-weight: 200;
+}
+.text-w300{
+    font-weight: 300;
+}
+.text-w400{
+    font-weight: 400;
+}
+.text-w500{
+    font-weight: 500;
+}
+.text-w600{
+    font-weight: 600;
+}
+.text-w700{
+    font-weight: 700;
+}
+.text-w800{
+    font-weight: 800;
+}
+.text-w900{
+    font-weight: 900;
+}
+
+/* ----------------------- bundle ----------------------- */
+
+.link-accent{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--clr-accent);
+}
+.text-result{
+    word-wrap: anywhere;
+    line-height: 1.4em
+}

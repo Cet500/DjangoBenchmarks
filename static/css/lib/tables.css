@@ -1,0 +1,90 @@
+/* ----------------------------- tables styles ------------------------------ */
+
+/* ---------------------- table base -------------------- */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Exo 2", sans-serif;
+    font-size: 18px;
+}
+.table td {
+    border: 1px solid var(--clr-very-light-gray);
+}
+.table th,
+.table td {
+    padding: 10px;
+    text-align: left;
+}
+.table thead {
+    background-color: var(--clr-very-light-gray);
+}
+
+/* ---------------------- table size -------------------- */
+
+.table.compact thead{
+    font-size: 17px;
+}
+.table.compact tbody{
+    font-size: 16px;
+}
+.table.compact th,
+.table.compact td {
+    padding: 8px;
+}
+
+.table.micro thead{
+    font-size: 15px;
+}
+.table.micro tbody{
+    font-size: 14px;
+}
+.table.micro th,
+.table.micro td {
+    padding: 6px;
+}
+
+/* --------------------- table extra -------------------- */
+
+.table.hover tbody tr:hover{
+    background-color: var(--clr-very-light-gray);
+}
+
+.table.clean td{
+    border: none;
+}
+
+.table.horizontal tbody td{
+    border: none;
+    border-top: 1px solid var(--clr-light-gray);
+    border-bottom: 1px solid var(--clr-light-gray);
+}
+.table.horizontal tbody tr:first-child td{
+    border-top: none;
+}
+.table.horizontal tbody tr:last-child td{
+    border-bottom: none;
+}
+
+.table.zebra tr:nth-child(2n){
+    background-color: var(--clr-very-light-gray);
+}
+.table.zebra.hover tbody tr:hover{
+    background-color: var(--clr-light-gray);
+}
+
+/* --------------------- table color -------------------- */
+
+.table.colors thead{
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+}
+.table.colors.hover tbody tr:hover{
+    background-color: var(--clr-accent-100);
+}
+.table.colors.zebra tr:nth-child(2n){
+    background-color: var(--clr-accent-100);
+}
+.table.colors.zebra.hover tbody tr:hover{
+    background-color: var(--clr-accent-200);
+}

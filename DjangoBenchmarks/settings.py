@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # External apps
-    'rest_framework'
+    'rest_framework',
+    # Project apps
+    'performance_tests.apps.PerformanceTestsConfig'
 ]
 
 MIDDLEWARE = [

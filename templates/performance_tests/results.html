@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+    <h1>История выполненных тестов</h1>
+
+    <table class="table compact hover horizontal">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID теста</th>
+                <th>Название</th>
+                <th>Параметры</th>
+                <th>Время</th>
+
+                <th>Python</th>
+                <th>Django</th>
+
+                <th>OS</th>
+                <th>CPU</th>
+                <th>RAM</th>
+                <th>GPU</th>
+
+                <th>Дата</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.test_id }}</td>
+                <td>{{ result.test_name }}</td>
+                <td>{{ result.parameters }}</td>
+                <td>{{ result.execution_time|floatformat }} сек</td>
+
+                <td>{{ result.python_version }}</td>
+                <td>{{ result.django_version }}</td>
+
+                <td>{{ result.os }}</td>
+                <td>{{ result.cpu }}</td>
+                <td>{{ result.memory }} МБ</td>
+                <td>{{ result.gpu }}</td>
+
+                <td>{{ result.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

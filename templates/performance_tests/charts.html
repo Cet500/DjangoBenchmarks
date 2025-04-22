@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+    <h1>Графики по результатам проведённых тестов</h1>
+
+    <section>
+        <div class="block-chart">
+            <h2>1. Количество тестов по версии Python</h2>
+            <canvas id="pythonCountChart"></canvas>
+        </div>
+
+        <div class="block-chart">
+            <h2>2. Среднее время выполнения (по Python версии и тесту)</h2>
+            <canvas id="timeChart"></canvas>
+        </div>
+
+        <div class="block-chart">
+            <h2>3.1. Тесты по CPU (топ-10)</h2>
+            <canvas id="cpuChart"></canvas>
+        </div>
+
+        <div class="block-chart">
+            <h2>3.2. Тесты по RAM</h2>
+            <canvas id="ramChart"></canvas>
+        </div>
+
+        <div class="block-chart">
+            <h2>3.3. Тесты по GPU (топ-5)</h2>
+            <canvas id="gpuChart"></canvas>
+        </div>
+
+        <div class="block-chart">
+            <h2>4. Количество запусков тестов по дням</h2>
+            <canvas id="dailyChart"></canvas>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Общая функция для создания графиков
+        function createChart(elementId, config) {
+            const ctx = document.getElementById(elementId).getContext('2d');
+            return new Chart(ctx, config);
+        }
+
+        // 1. Количество по Python версии
+        axios.get('/api/test_results/count_by_python/')
+            .then(response => {
+                const data = response.data;
+                createChart('pythonCountChart', {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => item.python_version),
+                        datasets: [{
+                            label: 'Количество тестов',
+                            data: data.map(item => item.count),
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                        }]
+                    }
+                });
+            });
+
+        // 2. Время выполнения по Python и тесту
+        axios.get('/api/test_results/time_by_python_test/')
+            .then(response => {
+                const data = response.data;
+
+                // Группируем по версии Python для нескольких наборов данных
+                const pythonVersions = [...new Set(data.map(item => item.python_version))];
+                const datasets = pythonVersions.map(version => {
+                    return {
+                        label: `Python ${version}`,
+                        data: data.filter(item => item.python_version === version)
+                                   .map(item => item.avg_time),
+                        backgroundColor: `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 0.6)`
+                    };
+                });
+
+                // Получаем уникальные тесты для подписей
+                const testNames = [...new Set(data.map(item => item.test_name))];
+
+                createChart('timeChart', {
+                    type: 'bar',
+                    data: {
+                        labels: testNames,
+                        datasets: datasets
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Среднее время (сек)'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+        // 3.1. Распределение по CPU
+        axios.get('/api/test_results/count_by_cpu/')
+            .then(response => {
+                createChart('cpuChart', {
+                    type: 'pie',
+                    data: {
+                        labels: response.data.map(item => item.cpu),
+                        datasets: [{
+                            data: response.data.map(item => item.count),
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                                '#9966FF', '#FF9F40', '#8AC24A', '#EA80FC',
+                                '#00ACC1', '#FF5722'
+                            ]
+                        }]
+                    }
+                });
+            });
+
+        // 3.2. Распределение по RAM
+        axios.get('/api/test_results/count_by_ram/')
+            .then(response => {
+                createChart('ramChart', {
+                    type: 'pie',
+                    data: {
+                        labels: response.data.map(item => item.ram),
+                        datasets: [{
+                            data: response.data.map(item => item.count),
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+                            ]
+                        }]
+                    }
+                });
+            });
+
+        // 3.3. Распределение по GPU
+        axios.get('/api/test_results/count_by_gpu/')
+            .then(response => {
+                createChart('gpuChart', {
+                    type: 'pie',
+                    data: {
+                        labels: response.data.map(item => item.gpu),
+                        datasets: [{
+                            data: response.data.map(item => item.count),
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+                            ]
+                        }]
+                    }
+                });
+            });
+
+        // 4. Количество тестов по дням
+        axios.get('/api/test_results/count_by_day/')
+            .then(response => {
+                const data = response.data;
+                createChart('dailyChart', {
+                    type: 'line',
+                    data: {
+                        labels: data.map(item => item.date),
+                        datasets: [{
+                            label: 'Количество тестов',
+                            data: data.map(item => item.count),
+                            borderColor: '#36A2EB',
+                            tension: 0.1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+
+{% endblock %}

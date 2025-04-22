@@ -1,0 +1,41 @@
+/* ----------------------------- global styles ------------------------------ */
+
+/* ------------------------- body ----------------------- */
+
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------ header ---------------------- */
+
+.header{
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+}
+.header__inner{
+    display: flex;
+    justify-content: space-between;
+    width: 1600px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+/* ------------------------- menu ----------------------- */
+
+.menu{
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+}
+.menu__item{
+    font-size: 18px;
+}
+
+/* ------------------------- main ----------------------- */
+
+.main{
+    width: 1600px;
+    margin: 30px auto;
+}

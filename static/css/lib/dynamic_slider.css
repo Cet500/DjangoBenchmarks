@@ -1,0 +1,97 @@
+.slider-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.slider-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.slider-header label {
+    font-size: 20px;
+    font-weight: 500;
+}
+.slider-header .slider-value {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 24px;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.slider-fill {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background: var(--slider-fill, var(--clr-accent));
+}
+.slider-fill.zebra {
+    --slider-dark: var(--clr-accent-600);
+    --slider-light: var(--clr-accent-500);
+    background: repeating-linear-gradient(
+            -45deg,
+            var(--slider-dark) 0px,
+            var(--slider-dark) 12px,
+            var(--slider-light) 12px,
+            var(--slider-light) 24px
+    );
+}
+.slider-fill.good {
+    --slider-fill: var(--clr-good);
+    --slider-dark: var(--clr-good-600);
+    --slider-light: var(--clr-good-500);
+}
+.slider-fill.warning {
+    --slider-fill: var(--clr-warning);
+    --slider-dark: var(--clr-warning-600);
+    --slider-light: var(--clr-warning-500);
+}
+.slider-fill.bad {
+    --slider-fill: var(--clr-bad);
+    --slider-dark: var(--clr-bad-600);
+    --slider-light: var(--clr-bad-500);
+}
+
+.custom-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 24px;
+    position: relative;
+    margin: 0;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.custom-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,51 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>Тесты производительности</title>
+
+        <link rel="stylesheet" href="{% static 'css/lib/colors.css' %}">
+        <link rel="stylesheet" href="{% static 'css/src/global.css' %}">
+        <link rel="stylesheet" href="{% static 'css/src/blocks.css' %}">
+
+        <link rel="stylesheet" href="{% static 'css/lib/buttons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/lib/text.css' %}">
+        <link rel="stylesheet" href="{% static 'css/lib/tables.css' %}">
+    
+        <style>
+            :root {
+                {% if hue %}
+                    --clr-accent-h: {{ hue }};
+                {% endif %}
+
+                {% if saturation %}
+                    --clr-accent-s: {{ saturation }}%;
+                {% endif %}
+            }
+        </style>
+
+        {% block add_styles %}{% endblock %}
+    </head>
+    
+    <body class="body">
+        <header class="header">
+            <div class="header__inner">
+                <a href="{% url 'index' %}" class='logo no-link'>DjangoBenchmarks</a>
+
+                <nav class="menu">
+                    <a href="{% url 'server_info' %}" class="menu__item no-link">О сервере</a>
+                    <a href="{% url 'test_results' %}" class="menu__item no-link">Результаты</a>
+                    <a href="{% url 'charts' %}" class="menu__item no-link">Графики</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main">
+            {% block main %}{% endblock %}
+        </main>
+
+        {% block add_scripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,33 @@
+/* ----------------------------- button styles ------------------------------ */
+
+/* ------------------------ base ------------------------ */
+
+.btn{
+    display: block;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Exo 2", sans-serif;
+}
+.btn:hover{
+    cursor: pointer;
+}
+
+.btn.center{
+    margin: 0 auto;
+}
+
+/* ----------------------- colors ----------------------- */
+
+.btn.accent{
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+}
+.btn.accent:hover{
+    background-color: var(--clr-accent-400);
+}
+.btn.accent:active{
+    background-color: var(--clr-accent-600);
+}

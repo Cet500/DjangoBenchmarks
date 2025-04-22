@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+
+    <h1>Доступные тесты производительности</h1>
+
+    <h2>Анализ результатов</h2>
+
+    <section class="container">
+        <div class="block block-mini">
+            <a href="{% url 'test_results' %}" class="link-accent">Данные о результатах</a>
+            <p>Данные о результатах тестов</p>
+            <code>/info/results</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'charts' %}" class="link-accent">Сводные графики</a>
+            <p>Обобщения результатов тестов</p>
+            <code>/info/charts</code>
+        </div>
+    </section>
+
+    <h2>Математика</h2>
+
+    <section class="container">
+        <div class="block block-mini">
+            <a href="{% url 'pi_calculation' digits=10 %}" class="link-accent">Вычисление π</a>
+            <p>Крайне неэффективный метод (ряд Лейбница)</p>
+            <code>/test/math/pi/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'matrix_mult' size=10 %}" class="link-accent">Перемножение матриц</a>
+            <p>Намеренно неоптимальный алгоритм O(n³)</p>
+            <code>/test/math/matrix_mult/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'generate_primes' count=10 %}" class="link-accent">Вычисление простых чисел</a>
+            <p>Наивный алгоритм проверки на простоту</p>
+            <code>/test/math/primes/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'calc_factorial' n=10 %}" class="link-accent">Вычисление факториала</a>
+            <p>Рекурсия с "мемоизацией" (намеренно плохой вариант)</p>
+            <code>/test/math/factorial/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'calc_fibonacci' n=10 %}" class="link-accent">Числа Фибоначчи</a>
+            <p>Экспоненциально медленный алгоритм O(2^n)</p>
+            <code>/test/math/fibonacci/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'calc_power' a=2 b=10 %}" class="link-accent">Возведение в степень</a>
+            <p>Наивный рекурсивный алгоритм</p>
+            <code>/test/math/power/2/10</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'calc_partitions' n=40 %}" class="link-accent">Разбиения числа</a>
+            <p>Рекурсивная реализация с экспоненциальной сложностью</p>
+            <code>/test/math/partitions/40</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'list_permutations' n=10 %}" class="link-accent">Перестановки списка</a>
+            <p>Буквальная перестановка элементов ( рекурсия, экспоненциальная сложность )</p>
+            <code>/test/math/list_permutations/10</code>
+        </div>
+    </section>
+
+    <h2>Технические странцы</h2>
+
+    <section class="container">
+        <div class="block block-mini">
+            <a href="{% url 'server_info' %}" class="link-accent">Данные о сервере</a>
+            <p>Данные о вычислительной мощности и Python</p>
+            <code>/info/server</code>
+        </div>
+
+        <div class="block block-mini">
+            <a href="{% url 'settings_color' %}" class="link-accent">Настройки</a>
+            <p>Некоторые настройки сайта и сервера</p>
+            <code>/settings</code>
+        </div>
+    </section>
+
+{% endblock %}
