@@ -1,0 +1,15 @@
+**/*.mo
+**/__pycache__
+.env
+.idea/
+.venv/
+db.sqlite3
+desktop.ini
+logs/
+media/
+temp/
+venv_base/
+venv_py_310/
+venv_py_311/
+venv_py_312/
+venv_py_313/
